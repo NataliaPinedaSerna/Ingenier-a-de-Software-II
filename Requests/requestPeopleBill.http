@@ -1,0 +1,38 @@
+###
+POST http://localhost:5000/api/v1/people/person HTTP/1.1
+Content-Type: application/json
+{
+    "name": "Catalina",
+    "lastname": " Serna",
+    "dni": "985432",
+    "address": {
+      "city": "Manizales",
+      "code_zip": 606,
+      "geo": [2745,8587]
+    }
+}
+
+###
+GET http://localhost:5000/api/v1/people HTTP/1.1
+
+###
+GET http://localhost:5000/api/v1/people/6232097e5d7864ad74a4aae1 HTTP/1.1
+
+
+###
+PUT http://localhost:5000/api/v1/people/623209335d7864ad74a4aade HTTP/1.1
+Content-Type: application/json
+{
+    "name": "Jean Carlos",
+    "lastname": "Ballesteros Zamora",
+    "dni": "12345",
+    "address": {
+      "city": "Manizales",
+      "code_zip": 606,
+      "geo": [307284,801427]
+    }
+}
+
+
+###
+DELETE http://localhost:5000/api/v1/people/623204f9b31a16b0f26adbbf HTTP/1.1
