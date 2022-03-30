@@ -10,7 +10,7 @@ Content-Type: application/json
     "super_powers":["Hacer del Mundo un Lugar Mejor"]
   }],
   "superhero_sidekick":[{
-    "sidekick":"Carlina",
+    "sidekick":"Coralina",
     "super_powers_sidekick":["Ser Feliz"]
   }]
 

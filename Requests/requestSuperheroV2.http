@@ -29,9 +29,9 @@ PUT http://localhost:5000/api/v1/superheroes_v2/623b4853e3e18d71aa9ba287 HTTP/1.
 Content-Type: application/json
 
 {
-  "superhero":"Jean",
+  "superhero":"SpiderMan",
   "realname": "Peter Parker",
-  "superpower":"SpiderSense"
+  "superpower":"Sentido Arácnido"
 }
 
 ###
