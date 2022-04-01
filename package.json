@@ -129,7 +129,7 @@
     "json-buffer": "^3.0.0",
     "json-schema-traverse": "^0.4.1",
     "json-stable-stringify-without-jsonify": "^1.0.1",
-    "kareem": "^2.3.4",
+    "kareem": "^2.3.5",
     "keyv": "^3.1.0",
     "latest-version": "^5.1.0",
     "levn": "^0.4.1",
@@ -155,6 +155,7 @@
     "ms": "^2.1.2",
     "natural-compare": "^1.4.0",
     "negotiator": "^0.6.3",
+    "nodemon": "^2.0.15",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
     "normalize-url": "^4.5.1",
@@ -239,13 +240,8 @@
     "xdg-basedir": "^4.0.0",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "lint": "eslint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
