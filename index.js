@@ -3,48 +3,53 @@ require('dotenv').config
 const express = require('express')
 const port = 3000 || process.env.port
 
-const email = require('./email')
+const email = require('./src/mail')
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+/* sgMail.setApiKey(process.env.SENDGRID_API_KEY) */
+sgMail.setApiKey('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')
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const accountSID = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
 
-const app = express();
-app.use(express.json);
-app.use(express.urlencoded({extended : false}));
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
 // TODO: http://localhost:3000/
-app.get('/',(req , res) => {
-  res.json( { message : 'Success' } )
+app.get('/',(req,res)=>{
+  res.json({message:'Success'})
 })
 
-app.listen(port, ()=> {
-  console.log(`Accede al Sitio Web dando click aquí : http://localhost:${port}`)
+//Para poder ver la ruta en el navegador, se activa el listen()
+app.listen(port,()=>{
+  console.log(`Accede al sitio web dando clic aquí: http://localhost:${port}`)
 })
 
-app.post( '/api/email/confirmation' , async ( req , res , next ) => {
-  try {
-    res.json( await email.sendOrder(req.body) )
-  } catch (error) {
-    next(error)
+app.post('/api/email/confirmation', async(req,res,next)=>{
+  //Llamamos función que estará en la clase mail.js y que require de unos parámetros que ingresan por Postman
+  try{
+    res.json(await email.sendOrder(req.body))
+  }catch(err){
+    next(err)
   }
 })
 
-app.use ( ( error , req , res , next ) => {
-  const statusCode = error.statusCode || 500
-  console.error ( error.message , error.stack )
-  res.status( statusCode ).json({'message' : error.message})
+//Validar el código que nos devuelve la ejecución del código, en caso de error mostrar todo el contenido del error
+app.use((err,req,res,next)=>{
+
+  const statusCode = err.statusCode || 500
+  console.error(err.message, err.stack)
+  res.status(statusCode).json({'message': error.message})
   return
 })
 
-function getMessage () {
-  const body = 'Mensaje enviado el día en que el brillo de la Luna apagó el Sol'
-  return {
+function getMessage(){
+  const body = 'Mensaje enviado cuando el brillo de la Luna apagó el Sol'
+  return{
     to: emailParams.toEmail ,
-    from: 'natalia.pinedas@autonoma.edu' ,
+    from: 'natalia.pinedas@autonoma.edu.co' ,
     subject: 'Confirmación de Ingeniería de Software' ,
-    text: `Hola ${emailParams.customerName} , te enviamos imágenes y el número de orden ${emailParams.orderNumber}`,
+    text: body,
     html: `
     <!DOCTYPE html>
     <html lang="en">
@@ -57,6 +62,7 @@ function getMessage () {
     <body>
       <img class="container section">
         <label for=""> Paisaje </label>
+        <br>
         <img src="https://iiif.wellcomecollection.org/image/V0042674/full/880%2C/0/default.jpg">
       </div>
     </body>
@@ -65,23 +71,21 @@ function getMessage () {
   }
 }
 
-async function sendEmail () {
-  try {
+async function sendEmail() {
+  try{
     await sgMail.send(getMessage())
     console.log('El correo ha sido enviado')
-  } catch (error) {
+  }catch(err){
     console.error('No se pudo enviar el correo')
-    console.error(error)
-    if (error.response) console.error(error.response.body)
+    console.error(err)
+    if(err.response) console.error(err.response.body)
   }
 }
 
-( async () => {
-  console.log('Enviando correo')
+(async()=>{
+  console.log('Enviando correo...')
   await sendEmail()
 })
-
-
 
 /* const client = require('twilio')(accountSid, authToken);
 
